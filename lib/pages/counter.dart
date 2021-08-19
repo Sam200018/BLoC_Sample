@@ -15,6 +15,7 @@ class CounterPage extends StatelessWidget {
           children: [
             SizedBox(height: 60.0),
             ResultsOperation(),
+            _NumberInput(),
             SizedBox(height: 100.0),
             _buttons(context),
           ],
@@ -33,7 +34,7 @@ class CounterPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           ElevatedButton.icon(
-            onPressed: () => counterBloc.add(SubstractOne(1)),
+            onPressed: () => print(counterBloc.state.counterResult),
             icon: Icon(Icons.exposure_minus_1_sharp),
             label: Text('Reiniciar'),
           ),
@@ -52,5 +53,25 @@ class CounterPage extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class _NumberInput extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final counter = BlocProvider.of<CounterBloc>(context);
+
+    return TextFormField(
+        autocorrect: false,
+        keyboardType: TextInputType.number,
+        onChanged: (number) {
+          int s = 0;
+          if (number != "") {
+            s = int.parse(number);
+          } else {
+            s = 0;
+          }
+          counter.add(AddOne(s));
+        });
   }
 }

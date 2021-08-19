@@ -19,7 +19,7 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
         counterResult: 0,
       );
     } else if (event is AddOne) {
-      yield CounterState(counterResult: state.counterResult + event.number);
+      yield CounterState(counterResult: event.number);
     } else if (event is SubstractOne) {
       yield CounterState(counterResult: state.counterResult - event.number);
     }
